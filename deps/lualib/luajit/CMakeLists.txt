@@ -82,6 +82,8 @@ if (UNIX OR APPLE)
     INTERFACE_INCLUDE_DIRECTORIES "${LUA_SOURCE_FOLDER}/src"
     )
     set_property(TARGET lualib PROPERTY IMPORTED_LOCATION ${LUAJIT_LIB_PATH})
+    target_compile_options(lualib INTERFACE -pagezero_size 10000 -image_base 100000000)
+
 
     # install generated files
     # note that the / at the end means that we copy folder contents, not the folder itself
