@@ -4,7 +4,7 @@ add_executable(example "${LOCAL_SOURCES}")
 target_include_directories(example PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 
 
-target_link_libraries(example sol)
+
 
 if (MSVC)
   set_target_properties(example PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(OutDir)")
@@ -17,3 +17,4 @@ elseif (UNIX)
   target_link_libraries(example "-Wl,-E" "-Wl,--no-as-needed" m dl)
   install(TARGETS example DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 endif ()
+target_link_libraries(example sol)
