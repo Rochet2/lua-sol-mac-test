@@ -1,0 +1,22 @@
+set(LUA_VERSION "luajit" CACHE STRING "Lua version to use")
+set_property(CACHE LUA_VERSION PROPERTY STRINGS lua51 luajit)
+MESSAGE(STATUS "Lua version: ${LUA_VERSION}")
+
+
+# option(LUA_STATIC "link lua statically" ON)
+if (WIN32)
+  set(LUA_STATIC OFF)
+else()
+  set(LUA_STATIC ON)
+endif()
+if (LUA_STATIC)
+  MESSAGE(STATUS "Lua linking: static")
+else()
+  MESSAGE(STATUS "Lua linking: dynamic")
+endif()
+
+if (LUA_VERSION MATCHES "luajit")
+  add_subdirectory(luajit)
+else()
+  add_subdirectory(lua)
+endif()

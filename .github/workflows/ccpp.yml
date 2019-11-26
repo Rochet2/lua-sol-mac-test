@@ -1,0 +1,52 @@
+name: C/C++ CI
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
+        luaversion: [lua51, luajit]
+    name: ${{ matrix.os }}-${{ matrix.luaversion }}
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v1
+    - name: install dependencies
+      run: |
+        sudo apt-get install libc6-dev libreadline-dev
+      if: matrix.os == 'ubuntu-latest'
+    - name: build & install
+      run: |
+        mkdir build && cd build
+        cmake ../ -DCMAKE_INSTALL_PREFIX=./installed -DLUA_VERSION=${{ matrix.luaversion }}
+        make && make install
+      env:
+        MACOSX_DEPLOYMENT_TARGET: 10.14
+    - name: run
+      run: |
+        cd build/installed/bin
+        ./example
+
+  build-windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        luaversion: [lua51, luajit]
+    name: windows-latest-${{ matrix.luaversion }}
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: build & install
+      run: |
+        mkdir build && cd build
+        cmake ../ -DCMAKE_INSTALL_PREFIX=./installed -DLUA_VERSION=${{ matrix.luaversion }}
+        cmake --build .
+        cmake --build . --target INSTALL
+      shell: bash
+    - name: run
+      run: |
+        cd build/installed
+        ./example
+      shell: bash
