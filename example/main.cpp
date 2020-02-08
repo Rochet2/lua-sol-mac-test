@@ -1,6 +1,4 @@
-#define SOL_CHECK_ARGUMENTS true
-#define SOL_SAFE_FUNCTION true
-#define SOL_EXCEPTIONS_SAFE_PROPAGATION true
+#define SOL_ALL_SAFETIES_ON true
 
 #include "forward.hpp"
 #include "sol.hpp"
