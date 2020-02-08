@@ -1,4 +1,4 @@
-#define SOL_ALL_SAFETIES_ON true
+#define SOL_ALL_SAFETIES_ON 1
 
 #include "forward.hpp"
 #include "sol.hpp"
