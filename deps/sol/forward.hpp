@@ -20,8 +20,8 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // This file was generated with a script.
-// Generated 2019-11-13 04:15:36.931580 UTC
-// This header was generated with sol v3.0.3 (revision 2ca27ee)
+// Generated 2020-01-28 18:44:18.449629 UTC
+// This header was generated with sol v3.2.0 (revision 903f4db)
 // https://github.com/ThePhD/sol2
 
 #ifndef SOL_SINGLE_INCLUDE_FORWARD_HPP
@@ -99,13 +99,13 @@
 
 #endif // vc++ || clang++/g++
 
-#if defined(SOL_CHECK_ARGUMENTS) && SOL_CHECK_ARGUMENTS
+#if defined(SOL_CHECK_ARGUMENTS) && SOL_CHECK_ARGUMENTS != 0
 	#if defined(SOL_ALL_SAFETIES_ON)
 		#define SOL_ALL_SAFETIES_ON 1
 	#endif // turn all the safeties on
-#endif // Compatibility define
+#endif // Compatibility Define for Safety
 
-#if defined(SOL_ALL_SAFETIES_ON) && SOL_ALL_SAFETIES_ON
+#if defined(SOL_ALL_SAFETIES_ON) && SOL_ALL_SAFETIES_ON != 0
 
 	// Checks low-level getter function
 	// (and thusly, affects nearly entire framework)
@@ -174,7 +174,7 @@
 
 #endif // Turn on Safety for all if top-level macro is defined
 
-#if defined(SOL_IN_DEBUG_DETECTED) && SOL_IN_DEBUG_DETECTED
+#if defined(SOL_IN_DEBUG_DETECTED) && SOL_IN_DEBUG_DETECTED != 0
 
 	#if !defined(SOL_SAFE_REFERENCES)
 	// Ensure that references are forcefully type-checked upon construction
@@ -343,12 +343,13 @@ namespace sol {
 	using function = protected_function;
 	using main_function = main_protected_function;
 	using stack_function = stack_protected_function;
+	using stack_aligned_function = stack_aligned_safe_function;
 #else
 	using function = unsafe_function;
 	using main_function = main_unsafe_function;
 	using stack_function = stack_unsafe_function;
-#endif
 	using stack_aligned_function = stack_aligned_unsafe_function;
+#endif
 	using stack_aligned_stack_handler_function = basic_protected_function<stack_reference, true, stack_reference>;
 
 	struct unsafe_function_result;
